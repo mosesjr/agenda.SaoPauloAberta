@@ -1,0 +1,589 @@
+@font-face {
+    font-family: "agendaDoPrefeito";
+    src: url("/++resource++agenda.SaoPauloAberta/agenda.eot");
+    src: local('O'),  
+         url("/++resource++agenda.SaoPauloAberta/agenda.ttf") format('truetype');
+}
+
+form {
+    display: inline-block;
+}
+
+.ap-main-container {
+    margin-top: 1em;
+    margin-left: 0;
+}
+
+.ap-upper-nav {
+    background-color: #999999;
+    color: #fff;
+    letter-spacing: 0.05em;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.ap-upper-element, 
+.ap-upper-element-active, 
+.ap-upper-bordered {
+    display: inline-block;
+    position: relative;
+    padding: 0.8em 1.5em;
+    vertical-align: top;
+    cursor: pointer;
+    font-family: "Lucida Grande",Arial,FreeSans;
+}
+
+.ap-upper-element:hover,
+.ap-upper-bordered:hover {
+    background-color: #777;
+}
+
+.ap-upper-element-active, 
+.ap-upper-element-active:hover,
+.ap-upper-bordered-active,
+.ap-upper-bordered-active:hover
+{
+    background-color: #b11117;
+    cursor: default;
+}
+
+.ap-upper-set {
+    position: absolute;
+    right: 1em;
+    bottom: -1px;
+    width: 0;
+    height: 0;
+    border-bottom: 12px solid #fff;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+}
+
+.ap-upper-search {
+    display: inline-block;
+    padding: 0.4em ;
+    vertical-align: top;
+}
+
+.ap-upper-search-sign {
+    display: none;
+    float: right;
+    margin: 0;
+    background-color: #ccc;
+    cursor: pointer;
+    padding: 0.55em ;
+    color: #333;
+    font-family: agendaDoPrefeito;
+    font-size: 1.6em;
+    vertical-align: top;
+}
+
+.ap-upper-search-sign:hover {
+    background-color: #bbb;
+}
+
+.ap-upper-search input {
+    width: 15em;
+    padding: 0.3em;
+    margin: 0.4em 0;
+    border: 1px solid #D1D1D1;
+    font-family: "Lucida Grande",Arial,FreeSans;
+}
+
+.ap-upper-element span {
+    background-color: #b11117; 
+    font-family: agendaDoPrefeito;
+    font-size: 2em;
+}
+
+.ap-upper-bordered {
+    margin: 0.55em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border: 1px solid #fff;
+}
+
+.right {
+    float:right;
+    margin-right: 2em;
+}
+
+.ap-filter {
+    border: 1px solid #333;
+    background-color: #fff;
+}
+
+.ap-info-bar {
+    height: 30em;
+    background-image: url("header.png");
+    background-position: center;
+    background-size: cover;
+    padding: 5em;
+    box-sizing: border-box;
+}
+
+.ap-info-container {
+    display: inline-block;
+    float: right;
+    text-align: right;
+}
+.ap-info-box {
+    display: inline-block;
+    width: 40%;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1em;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.ap-info-box span {
+    font-weight: 700;
+}
+
+.ap-info-spacer {
+    height: 2em;
+}
+
+.ap-info-button {
+    display: inline-block;
+    background-color: #b11117;
+    padding: 1em 4em;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase; 
+}
+
+.ap-info-button:hover {
+    background-color: #790c10;
+}
+
+.ap-view {
+    display: inline-block;
+    margin: 1.5em;
+    margin-top: 4em;
+    margin-bottom: 0;
+    text-align: right;
+    color: #333;
+    font-family: "Lucida Grande",Arial,FreeSans;
+}
+
+.ap-view-item {
+    line-height: 1em;
+}
+
+.ap-view-item span {
+    margin-top: 1em;
+    vertical-align: bottom;
+    color: #555;
+    font-family: agendaDoPrefeito;
+    font-size: 3em;
+    cursor: pointer;
+}
+
+.ap-view span:hover {
+    color: #999;
+}
+
+.ap-view-item-active span{
+    color: #b11117;
+}
+
+.ap-view-item-active span:hover {
+    color: #eb3037;
+}
+
+.ap-side-nav {
+    display: inline-block;
+    vertical-align: top;
+    width: 17%;
+}
+.ap-side-nav-opt, .ap-side-nav-opt-active{
+    padding-top: 1.7em;
+    padding-bottom: 2.5em;
+    margin-bottom: 1.5em;
+    color: #b11117;
+    font-weight: 700;
+}
+
+.ap-side-nav-opt-active {
+    position: relative;
+    box-shadow: 0 0 10px #AAA;
+}
+
+.ap-top-nav {
+    display: none;
+    width: 95%;
+    vertical-align: top;
+    text-align: left;
+}
+
+.ap-top-nav-opt, .ap-top-nav-opt-active{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    padding: 0 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    color: #b11117;
+    font-weight: 700;
+}
+
+.ap-top-nav-opt-active {
+    position: relative;
+    box-shadow: 0 0 10px #AAA;
+}
+
+.ap-clean-bottom-border {
+    position: absolute;
+    bottom: -1em;
+    left: 0;
+    width: 100%;
+    height: 2em;
+    background-color: #fff;
+}
+
+.ap-view-title {
+    margin: 1.5em 1em;
+    margin-bottom: 0;
+    color: #b11117;
+    font-family: "arial";
+    font-size: 1.7em;
+    font-weight: 700;
+}
+
+.ap-opt-element {
+    cursor: pointer;
+    font-size: 1em;
+}
+
+
+.ap-opt-element:hover {
+    color: #790c10;
+}
+
+.ap-opt-element div {
+    display: block;
+    padding-top: 0.2em;
+    font-family: agendaDoPrefeito;
+    font-size: 6em;
+    font-weight: 300;
+    line-height: 1em;
+}
+.ap-clean-border {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    z-index: 10;
+    width: 20px;
+    height: 100%;
+    border: 0;
+    background-color: #fff;
+}
+
+.ap-warning {
+    margin-top: 3em;
+    margin-bottom: 7em;
+    font-size: 2em;
+    text-align: center;
+}
+
+.ap-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 80%;
+    min-height: 45em;
+    box-shadow: 0 0 10px #AAA;
+    padding-top: 1em;
+    text-align: left;
+}
+
+.ap-mobile-title {
+    display: none;
+    padding: 1em 1em;
+    padding-bottom: 0;
+    color: #b11117;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.ap-element {
+    position: relative;
+    width: 18em;
+}
+
+.ap-element-menu {
+    position: absolute;
+    z-index: 1;
+    margin-top: -2em;
+    margin-left: -8em;
+    border: 1px solid #8c8c8c;
+    border-bottom: 0;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px #aaa;
+}
+
+.ap-element-menu div {
+    border-bottom: 1px solid #8c8c8c;
+    padding: 0.5em 1.4em;
+    font-size: 1.2em;
+}
+
+.ap-element-menu div:hover {
+    background-color: #ddd;
+}
+
+.ap-header-img img {
+    width: 100%;
+    height: auto;
+}
+
+.ap-badge {
+    display: inline-block;
+    margin: -0.3em;
+
+    background: #bfbfbf; /* Old browsers */
+    background: -moz-linear-gradient(left, #bfbfbf 0%, #e8e8e8 8%, #edf2ea 11%, #efefef 13%, #d6d6d6 22%, #c4c4c4 41%, #f2f2f2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bfbfbf), color-stop(8%,#e8e8e8), color-stop(11%,#edf2ea), color-stop(13%,#efefef), color-stop(22%,#d6d6d6), color-stop(41%,#c4c4c4), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #bfbfbf 0%,#e8e8e8 8%,#edf2ea 11%,#efefef 13%,#d6d6d6 22%,#c4c4c4 41%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #bfbfbf 0%,#e8e8e8 8%,#edf2ea 11%,#efefef 13%,#d6d6d6 22%,#c4c4c4 41%,#f2f2f2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #bfbfbf 0%,#e8e8e8 8%,#edf2ea 11%,#efefef 13%,#d6d6d6 22%,#c4c4c4 41%,#f2f2f2 100%); /* IE10+ */
+    background: linear-gradient(to right, #bfbfbf 0%,#e8e8e8 8%,#edf2ea 11%,#efefef 13%,#d6d6d6 22%,#c4c4c4 41%,#f2f2f2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfbfbf', endColorstr='#f2f2f2',GradientType=1 ); /* IE6-9 */
+
+    border: 1px solid #aaa;
+    box-shadow: 2px 2px 3px #aaa;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    padding: 0.1em 1.5em;
+    padding-left: 3.5em;
+    font-weight: 700;
+    color: #666;
+}
+
+.ap-badge-submit { 
+    background: #c40d00; /* Old browsers */
+    background: -moz-linear-gradient(left, #c40d00 0%, #ed8989 8%, #f4ebeb 11%, #f4e6e6 13%, #db0202 22%, #c90202 41%, #f79191 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c40d00), color-stop(8%,#ed8989), color-stop(11%,#f4ebeb), color-stop(13%,#f4e6e6), color-stop(22%,#db0202), color-stop(41%,#c90202), color-stop(100%,#f79191)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #c40d00 0%,#ed8989 8%,#f4ebeb 11%,#f4e6e6 13%,#db0202 22%,#c90202 41%,#f79191 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #c40d00 0%,#ed8989 8%,#f4ebeb 11%,#f4e6e6 13%,#db0202 22%,#c90202 41%,#f79191 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #c40d00 0%,#ed8989 8%,#f4ebeb 11%,#f4e6e6 13%,#db0202 22%,#c90202 41%,#f79191 100%); /* IE10+ */
+    background: linear-gradient(to right, #c40d00 0%,#ed8989 8%,#f4ebeb 11%,#f4e6e6 13%,#db0202 22%,#c90202 41%,#f79191 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c40d00', endColorstr='#f79191',GradientType=1 ); /* IE6-9 */ 
+    padding-left: 3.5em;
+    font-weight: 700;
+    color: #FFF;
+}
+
+.ap-badge-published {
+    background: #40c100; /* Old browsers */
+    background: -moz-linear-gradient(left, #40c100 0%, #a8ea88 8%, #edf2ea 11%, #eaf2e6 13%, #49d802 22%, #43c601 41%, #b1f490 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#40c100), color-stop(8%,#a8ea88), color-stop(11%,#edf2ea), color-stop(13%,#eaf2e6), color-stop(22%,#49d802), color-stop(41%,#43c601), color-stop(100%,#b1f490)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #40c100 0%,#a8ea88 8%,#edf2ea 11%,#eaf2e6 13%,#49d802 22%,#43c601 41%,#b1f490 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #40c100 0%,#a8ea88 8%,#edf2ea 11%,#eaf2e6 13%,#49d802 22%,#43c601 41%,#b1f490 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #40c100 0%,#a8ea88 8%,#edf2ea 11%,#eaf2e6 13%,#49d802 22%,#43c601 41%,#b1f490 100%); /* IE10+ */
+    background: linear-gradient(to right, #40c100 0%,#a8ea88 8%,#edf2ea 11%,#eaf2e6 13%,#49d802 22%,#43c601 41%,#b1f490 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40c100', endColorstr='#b1f490',GradientType=1 ); /* IE6-9 */
+    padding-left: 3.5em;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ap-badge-selected {
+
+    background: #c97c00; /* Old browsers */
+    background: -moz-linear-gradient(left, #c97c00 0%, #edcf89 8%, #f7f4ed 11%, #f7f2e6 13%, #dd9b02 22%, #cca002 41%, #fbdf93 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c97c00), color-stop(8%,#edcf89), color-stop(11%,#f7f4ed), color-stop(13%,#f7f2e6), color-stop(22%,#dd9b02), color-stop(41%,#cca002), color-stop(100%,#fbdf93)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #c97c00 0%,#edcf89 8%,#f7f4ed 11%,#f7f2e6 13%,#dd9b02 22%,#cca002 41%,#fbdf93 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #c97c00 0%,#edcf89 8%,#f7f4ed 11%,#f7f2e6 13%,#dd9b02 22%,#cca002 41%,#fbdf93 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #c97c00 0%,#edcf89 8%,#f7f4ed 11%,#f7f2e6 13%,#dd9b02 22%,#cca002 41%,#fbdf93 100%); /* IE10+ */
+    background: linear-gradient(to right, #c97c00 0%,#edcf89 8%,#f7f4ed 11%,#f7f2e6 13%,#dd9b02 22%,#cca002 41%,#fbdf93 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c97c00', endColorstr='#fbdf93',GradientType=1 ); /* IE6-9 */
+    padding-left: 3.5em;
+    color: #000;
+    font-weight: 700;
+}
+
+.ap-badge-expired {
+
+    background: #4c4c4c; /* Old browsers */
+    background: -moz-linear-gradient(left, #4c4c4c 0%, #595959 7%, #adadad 12%, #474747 17%, #000000 32%, #000000 32%, #111111 59%, #757575 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#4c4c4c), color-stop(7%,#595959), color-stop(12%,#adadad), color-stop(17%,#474747), color-stop(32%,#000000), color-stop(32%,#000000), color-stop(59%,#111111), color-stop(100%,#757575)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #4c4c4c 0%,#595959 7%,#adadad 12%,#474747 17%,#000000 32%,#000000 32%,#111111 59%,#757575 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #4c4c4c 0%,#595959 7%,#adadad 12%,#474747 17%,#000000 32%,#000000 32%,#111111 59%,#757575 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #4c4c4c 0%,#595959 7%,#adadad 12%,#474747 17%,#000000 32%,#000000 32%,#111111 59%,#757575 100%); /* IE10+ */
+    background: linear-gradient(to right, #4c4c4c 0%,#595959 7%,#adadad 12%,#474747 17%,#000000 32%,#000000 32%,#111111 59%,#757575 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#757575',GradientType=1 ); /* IE6-9 */
+
+
+    padding-left: 3.5em;
+    color: #fff;
+    font-weight: 700;
+}
+
+.ap-edit {
+    display: inline-block;      
+    font-family: agendaDoPrefeito;
+    font-size: 1.5em;
+}
+
+.ap-edit:hover {
+    color: #666;
+}
+
+.ap-title {
+    padding: 0.8em 0.5em;
+    color: #333;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.ap-info {
+    padding-right: 1em;
+
+}
+
+.ap-date {
+    display: inline-block;
+    color: #959595;
+    padding-left: 0.5em;
+}
+
+.ap-vote {
+    display: inline-block;
+    float: right;
+    color: #333;
+    padding: 0 0.5em;
+}
+
+.ap-vote img {
+    width: 1.5em;
+    height: auto;
+    padding-right: 0.3em;
+}
+
+.ap-vote span {
+    vertical-align: top;
+}
+
+.ap-description {
+    margin-bottom: 1em;
+    max-height: 14em;
+    padding: 1em 0.5em;
+    text-align: left;
+    color: #5c5c5c;
+    font-size: 1em;
+    letter-spacing: 0.03em;
+    line-height: 1.5em; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#filter-box {
+    background-image: URL("mag.png");
+    background-size: 1em 1em;
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    padding-right: 2em;
+}
+
+.large {
+    display: inline-block!important;
+}
+
+.small{
+    display: none !important;
+}
+
+/* Responsive */
+
+@media (max-width: 999px) {
+    .ap-top-nav {
+        display: inline-block;
+    }
+
+    .ap-mobile-title {
+        display: block;
+    }
+    
+    .ap-upper-search-sign {
+        display: inline-block;
+    }
+    .ap-upper-search {
+        display: none;
+    }
+
+    .ap-side-nav {
+        display: none;
+    }
+
+    .ap-container {
+        width: 95%;
+        min-height: 0;
+    }
+
+    .ap-info-box {
+        width: 90%;
+    }
+
+    .ap-view {
+        display: none;
+    }
+
+}
+
+@media (max-width: 599px) {
+    .large {
+        display: none !important; 
+    }
+
+    .small{
+        display: inline-block !important;
+    }
+
+    .ap-info-bar {
+        height: auto;
+    }
+   
+    .ap-upper-nav form {
+        display: block;
+    }
+    
+    .ap-upper-element, 
+    .ap-upper-element-active,
+    .ap-upper-bordered {
+        display: block;
+        text-align: center;
+    }
+
+    .ap-upper-set {
+        display: none;
+    }
+
+    .ap-info-container {
+        display: block;
+        float: none;
+        text-align: center;
+    }
+    
+    .ap-info-box {
+        display: none;
+    }
+
+    .ap-info-button {
+        font-size: 1.3em;        
+    }
+
+    .ap-element {
+        display: block;
+        width: auto;
+    }
+
+    .ap-badge {
+        margin-top: 0.5em;
+    }
+
+    .ap-header-img {
+        display: none;
+    }
+
+}

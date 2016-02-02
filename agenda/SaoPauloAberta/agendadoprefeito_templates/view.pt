@@ -1,0 +1,265 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="portal.SaoPauloAberta">
+<body>
+	
+<metal:block fill-slot="style_slot">
+	<metal:style define-macro="style_slot">
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/containerTemplate.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/main.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/main.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/cal.css"/>
+	</metal:style>
+</metal:block>
+
+<metal:main fill-slot="content-core">
+  <metal:content-core define-macro="content-core">
+    <script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/jquery.jscroll.js"></script>
+    <tal:block content="structure provider:agenda.SaoPauloAberta.INavBar"></tal:block>
+    <div class="ap-view">
+        <form tal:condition="python: view.whom=='mine' and view.action!='winner'" action="" method="POST">
+            Mostrar:
+            <select class="ap-filter" name="filter" onchange="this.parentNode.submit()">
+                <option value="all">Todos os status</option>
+                <option value="draft" tal:attributes="selected python: view.filter=='save'">Rascunho</option>
+                <option value="submitted" tal:attributes="selected python: view.filter=='submitted'">Submetido à Análise</option>
+                <option value="published" tal:attributes="selected python: view.filter=='published'">Publicado</option>
+                <option value="expired" tal:attributes="selected python: view.filter=='expired'">Expirado</option>
+            </select>
+            <input type="hidden" name="whom" tal:attributes="value view/whom">
+            <input type="hidden" name="action" tal:attributes="value view/action">
+            <input type="hidden" name="view" tal:attributes="value view/view">
+        </form>
+    </div>
+    <div class="right ap-view">Visualização:
+            <form action="" method="POST">
+                    <div tal:attributes="class python: 'ap-view-item ap-view-item-active' if view.view=='calendar' else 'ap-view-item'" onclick="this.parentNode.submit()">
+                        <span>C</span>
+                    </div>
+                    <input type="hidden" name="whom" tal:attributes="value view/whom">
+                    <input type="hidden" name="action" tal:attributes="value view/action">
+                    <input type="hidden" name="view" value="calendar">
+            </form><form action="" method="POST">
+                    <div tal:attributes="class python:'ap-view-item ap-view-item-active' if view.view=='list' else 'ap-view-item'" onclick="this.parentNode.submit()">
+                        <span>M</span>
+                    </div>
+                    <input type="hidden" name="whom" tal:attributes="value view/whom">
+                    <input type="hidden" name="action" tal:attributes="value view/action">
+                    <input type="hidden" name="view" value="list">
+            </form>
+    </div>
+    <div></div>
+	<div class="spa-element-container ap-main-container">
+            <div class="ap-warning" tal:condition="python: view.numWinner == 0 and view.numNonWinner == 0">Não há eventos disponíveis.</div>
+            <div class="ap-top-nav">
+                <div tal:condition="python: view.numNonWinner > 0" tal:attributes="class python: 'ap-top-nav-opt-active' if view.action == 'all' else 'ap-top-nav-opt'">
+                    <form action="" method="POST">
+                            <div class="ap-opt-element" onclick="this.parentNode.submit()">
+                                <div>E</div>
+                            </div>
+                            <input type="hidden" name="whom" tal:attributes="value view/whom">
+                            <input type="hidden" name="action" value="all">
+                            <input type="hidden" name="view" tal:attributes="value view/view">
+                    </form>
+                    <div tal:condition="python: view.action == 'all'" class="ap-clean-bottom-border"></div>
+                </div>
+                <div tal:condition="python: view.numWinner > 0" tal:attributes="class python: 'ap-top-nav-opt-active' if view.action == 'winner' else 'ap-top-nav-opt'">
+                    <form action="" method="POST">
+                            <div class="ap-opt-element" onclick="this.parentNode.submit()">
+                                <div>T</div>
+                            </div>
+                            <input type="hidden" name="whom" tal:attributes="value view/whom">
+                            <input type="hidden" name="action" value="winner">
+                            <input type="hidden" name="view" tal:attributes="value view/view">
+                    </form>
+                    <div tal:condition="python: view.action == 'winner'" class="ap-clean-bottom-border"></div>
+                </div>
+                <div tal:condition="python: view.CanPublish() and view.toPublish > 0 and view.whom=='all'" tal:attributes="class python: 'ap-top-nav-opt-active' if view.action == 'submitted' else 'ap-top-nav-opt'">
+                    <form action="" method="POST">
+                            <div class="ap-opt-element" onclick="this.parentNode.submit()">
+                                <div>H</div>
+                            </div>
+                            <input type="hidden" name="whom" tal:attributes="value view/whom">
+                            <input type="hidden" name="action" value="submitted">
+                            <input type="hidden" name="view" tal:attributes="value view/view">
+                    </form>
+                    <div tal:condition="python: view.action == 'submitted'" class="ap-clean-bottom-border"></div>
+                </div>
+            </div>
+
+            <div class="ap-side-nav">
+                <div tal:condition="python: view.numNonWinner > 0" tal:attributes="class python: 'ap-side-nav-opt-active' if view.action == 'all' else 'ap-side-nav-opt'">
+                    <form action="" method="POST">
+                            <div class="ap-opt-element" onclick="this.parentNode.submit()">
+                                Sugestões de Eventos
+                                <div>E</div>
+                            </div>
+                            <input type="hidden" name="whom" tal:attributes="value view/whom">
+                            <input type="hidden" name="action" value="all">
+                            <input type="hidden" name="view" tal:attributes="value view/view">
+                    </form>
+                    <div class="ap-clean-border"></div>
+                </div>
+                <div tal:condition="python: view.numWinner > 0" tal:attributes="class python: 'ap-side-nav-opt-active' if view.action == 'winner' else 'ap-side-nav-opt'">
+                    <form action="" method="POST">
+                            <div class="ap-opt-element" onclick="this.parentNode.submit()">
+                                Eventos Ganhadores
+                                <div>T</div>
+                            </div>
+                            <input type="hidden" name="whom" tal:attributes="value view/whom">
+                            <input type="hidden" name="action" value="winner">
+                            <input type="hidden" name="view" tal:attributes="value view/view">
+                    </form>
+                    <div class="ap-clean-border"></div>
+                </div>
+                <div tal:condition="python: view.CanPublish() and view.toPublish > 0 and view.whom=='all'" tal:attributes="class python: 'ap-side-nav-opt-active' if view.action == 'submitted' else 'ap-side-nav-opt'">
+                    <form action="" method="POST">
+                            <div class="ap-opt-element" onclick="this.parentNode.submit()">
+                                Submissões 
+                                <div>H</div>
+                            </div>
+                            <input type="hidden" name="whom" tal:attributes="value view/whom">
+                            <input type="hidden" name="action" value="submitted">
+                            <input type="hidden" name="view" tal:attributes="value view/view">
+                    </form>
+                    <div class="ap-clean-border"></div>
+                </div>
+            </div>
+            <div class="ap-container" tal:condition="python: view.numWinner > 0 or view.numNonWinner > 0">
+            
+            <div class="ap-mobile-title">
+               <tal:block condition="python: view.action=='all'">Sugestões de Eventos</tal:block>
+               <tal:block condition="python: view.action=='winner'">Eventos Ganhadores</tal:block>
+               <tal:block condition="python: view.action=='submitted'">Submissões</tal:block>
+            </div>
+
+           <main tal:condition="python: view.view=='calendar'">
+
+           <header>
+            <form action="" method="POST"> 
+                    <div class="ap-cal-ctrl" onclick="this.parentNode.submit()">&lt;</div>
+                    <input type="hidden" name="whom" tal:attributes="value view/whom">
+                    <input type="hidden" name="action" tal:attributes="value view/action">
+                    <input type="hidden" name="view" tal:attributes="value view/view">
+                    <input type="hidden" name="week" tal:attributes="value python:view.week-1">
+            </form>
+            <div class="ap-cal-title">  
+                <span tal:content="python: view.GetCalStart().day"></span> de 
+                <span tal:content="python: view.ConvertFullMonthName(view.GetCalStart().month)"></span> de 
+                <span tal:content="python: view.GetCalStart().year"></span>  -  
+                <span tal:content="python: view.GetCalEnd().day"></span> de 
+                <span tal:content="python: view.ConvertFullMonthName(view.GetCalEnd().month)"></span> de 
+                <span tal:content="python: view.GetCalEnd().year"></span></div>
+            <form action="" method="POST"> 
+                    <div class="ap-cal-ctrl" onclick="this.parentNode.submit()">&gt;</div>
+                    <input type="hidden" name="whom" tal:attributes="value view/whom">
+                    <input type="hidden" name="action" tal:attributes="value view/action">
+                    <input type="hidden" name="view" tal:attributes="value view/view">
+                    <input type="hidden" name="week" tal:attributes="value python:view.week+1">
+            </form>
+           </header> 
+           <div class="ap-cal-container">
+           <section>
+                <header>
+                    <div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day"></span><span> domingo</span></div></div
+                    ><div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day + 1"></span><span> segunda</span></div></div
+                    ><div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day + 2"></span><span> terça</span></div></div
+                    ><div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day + 3"></span><span> quarta</span></div></div
+                    ><div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day + 4"></span><span> quinta</span></div></div
+                    ><div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day + 5"></span><span> sexta</span></div></div
+                    ><div class="ap-week-day"><div class="ap-week-spacer"><span tal:content="python: view.GetCalStart().day + 6"></span><span> sábado</span></div></div>
+                </header>
+
+                <tal:block repeat="week view/GetCalendarEvents">
+                    <div class="ap-cal-line">
+                        <tal:block repeat="weekDay week"><div tal:attributes="onclick string: window.location.href='${weekDay/getPath}'" tal:condition="python: weekDay is not None" class="ap-cal-cell">
+                           <div tal:content="python: view.GetStartTime(weekDay)"></div>
+                           <div tal:content="weekDay/Title"></div>
+                         </div><div tal:condition="python: weekDay is None" class="ap-cal-cell-empty"></div></tal:block>
+                    </div>
+                </tal:block> 
+           </section>
+           </div>
+            </main>
+            <tal:block condition="python: view.view=='list'" repeat="element view/Elements">
+                <div class="spa-element ap-element">
+                    <a tal:attributes="href element/getPath">
+                    <div class="spa-header-img ap-header-img"><img tal:condition="python:element.getObject().GetFrontPage()" tal:attributes="src python: element.getObject().GetFrontPage()"></div>
+                    <div class="ap-badge" tal:condition="python: view.whom=='mine' and view.GetObjectState(element)=='save'" tal:content="python: view.TranslateState(element)"></div>
+                    <div class="ap-badge ap-badge-submit" tal:condition="python: (view.whom=='mine' or view.action=='submitted') and view.GetObjectState(element)=='submit' and element.review_state=='private'" tal:content="python: view.TranslateState(element)"></div>
+                    <div class="ap-badge ap-badge-published" tal:condition="python: view.whom=='mine' and view.GetObjectState(element)=='published' " tal:content="python: view.TranslateState(element)"></div>
+                    <div class="ap-badge ap-badge-selected" tal:condition="python: view.GetObjectState(element)=='selected'" tal:content="python: view.TranslateState(element)"></div>
+                    <div class="ap-badge ap-badge-expired" tal:condition="python: view.whom=='mine' and view.GetObjectState(element)=='expired' " tal:content="python: view.TranslateState(element)"></div>
+                    <div class="spa-title ap-title" tal:content="element/Title"></div>
+                    <div class="ap-info">
+                            <div class="ap-date" tal:content="string:${element/start/day}/${element/start/month}/${element/start/year}"></div>
+                            <div class="ap-vote large" >
+                                    <form class="ap-remove-element" method="POST" action="@@removeElement">
+                                            <div class="ap-edit" tal:condition="python: view.IsMine(element)" onclick="event.preventDefault();if (confirm('Tem certeza que deseja apagar o evento ?'))this.parentNode.submit()">G</div>
+                                            <input type="hidden" name="whom" value="mine">
+                                            <input type="hidden" name="id" tal:attributes="value python: element.id">
+                                    </form>
+                            </div>
+                            <div class="ap-vote small" >
+                                <div class="ap-edit" onclick="event.preventDefault(); this.parentNode.getElementsByClassName('ap-element-menu')[0].style.display=''">I</div>
+                                <div class="ap-element-menu" style="display: none" onmouseleave="this.style.display='none'">
+                                    <div onclick="event.preventDefault();this.parentNode.parentNode.parentNode.getElementsByClassName('ap-edit-element')[0].submit()" tal:condition="python: view.GetObjectState(element)=='save'">Editar</div>
+                                    <div>Visualizar</div>
+                                    <div onclick="event.preventDefault();if (confirm('Tem certeza que deseja apagar o evento ?'))this.parentNode.parentNode.parentNode.getElementsByClassName('ap-remove-element')[0].submit()" tal:condition="python: view.IsMine(element)">Excluir</div>
+                                </div>
+                            </div>
+                            <div class="ap-vote" tal:condition="python: view.GetObjectState(element)=='published'"> 
+                                <img tal:condition="python: not element.getObject().HasDislikeVotes()" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/dislike.png" onclick="this.parentNode.submit()">
+                                <img tal:condition="python: element.getObject().HasDislikeVotes()" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/dislike_active.png" onclick="this.parentNode.submit()">
+                                <span tal:content="python:len(element.getObject().dislikes)"></span>
+                            </div>
+
+                            <div class="ap-vote" tal:condition="python: view.GetObjectState(element)=='published'">
+                                <img tal:condition="python: not element.getObject().HasLikeVotes()" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/like.png" onclick="this.parentNode.submit()">
+                                <img tal:condition="python: element.getObject().HasLikeVotes()" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/like_active.png" onclick="this.parentNode.submit()">
+                                <span tal:content="python:len(element.getObject().likes)"></span>
+                            </div>
+                            <div class="ap-vote large" >
+                                    <form class="ap-edit-element" method="POST" action="@@addElement">
+                                            <div class="ap-edit" tal:condition="python: view.GetObjectState(element)=='save'" onclick="event.preventDefault();this.parentNode.submit()">L</div>
+                                            <input type="hidden" name="whom" value="add">
+                                            <input type="hidden" name="evt" tal:attributes="value python: element.id">
+                                    </form>
+                            </div>
+                    </div>
+                    <div class="spa-description ap-description" tal:content="element/Description"></div>
+                    </a>
+                </div>		
+            </tal:block>		
+            <div style="text-align: center"> <a class="jscroll-next" tal:condition="view/NonNullNextQuery" tal:attributes="href string:${view/context/@@plone_context_state/canonical_object_url}/@@elements?${view/GetQueryString}">Próximo</a></div>
+            </div>
+	</div>
+	<script tal:condition="view/NonNullNextQuery">
+		$('.spa-element-container').jscroll({
+			loadingHtml: 'Loading...',
+			padding: 20,
+			nextSelector: 'a.jscroll-next:last',			
+		});
+
+	</script>
+	<script>
+        function AddLoginAlert() {
+            alert('Você precisa estar autenticado para criar um evento');
+        }
+    </script>
+  </metal:content-core>
+</metal:main>
+
+<metal:block fill-slot="javascript_beforebodyend_slot">
+	<metal:js define-macro="javascript_beforebodyend_slot">
+		<script tal:content="string:var postAxis = '${view/GetPreFilter}';"></script>
+		<script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/containerTemplate.js"/>		
+	</metal:js>
+</metal:block>
+</body>
+</html>
+

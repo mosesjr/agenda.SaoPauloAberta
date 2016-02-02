@@ -1,0 +1,33 @@
+<nav class="ap-upper-nav">
+    <form action="@@view" method="POST">
+        <div tal:attributes="class python: 'ap-upper-element-active' if view.whom == 'all' else 'ap-upper-element'" onclick="this.parentNode.submit()">Ver Todos os Eventos
+        <div tal:condition="python: view.whom == 'all'" class="ap-upper-set"></div>
+        <input type="hidden" name="whom" value="all">
+        <input type="hidden" name="action" tal:attributes="value view/action">
+        <input type="hidden" name="view" tal:attributes="value view/view">
+    </div></form><form tal:condition="view/AuthenticatedUser" action="@@view" method="POST">
+        <div tal:attributes="class python: 'ap-upper-element-active' if view.whom == 'mine' else 'ap-upper-element'" onclick="this.parentNode.submit()">Meus Eventos Cadastrados
+        <div tal:condition="python: view.whom == 'mine'" class="ap-upper-set"></div>
+        <input type="hidden" name="whom" value="mine">
+        <input type="hidden" name="action" tal:attributes="value view/action">
+        <input type="hidden" name="view" tal:attributes="value view/view">
+    </div></form><form id="ap-add-element-form" action="@@addElement" method="POST">
+        <div tal:attributes="class python: 'ap-upper-bordered ap-upper-bordered-active' if view.whom == 'add' else 'ap-upper-bordered' ; onclick python:'this.parentNode.submit()' if view.AuthenticatedUser() else 'AddLoginAlert()'">Cadastre seu Evento
+        <div tal:condition="python: view.whom == 'add'" class="ap-upper-set"></div>
+        <input type="hidden" name="whom" value="add">
+    </div></form>
+    <div tal:condition="python: view.whom=='all' or view.whom=='mine'" class="ap-upper-search right"><input type="search" id="filter-box" placeholder="Buscar por Palavra-Chave"></div>
+</nav>    
+
+<div tal:condition="python: view.whom != 'add'" class="ap-info-bar">
+    <div class="ap-info-container">
+            <div class="ap-info-box">Você sabia que o subprefeito poderá participar do seu evento? Para isso inscreva eventos relacionados a <span>Cultura e Lazer</span>, e chame os amigos para votar. O evento que tiver mais "<span>curtidas</span>" poderá contar com a presença do subprefeito da região.</div>
+            <div class="ap-info-spacer"></div>
+            <div class="ap-info-button" tal:attributes="onclick python: 'document.getElementById(\'ap-add-element-form\').submit()' if view.AuthenticatedUser() else 'AddLoginAlert()' ">Cadastre seu Evento</div>
+    </div>
+</div>
+
+<div tal:condition="python: view.whom == 'all'" class="ap-view-title">Todos os Eventos</div>
+<div tal:condition="python: view.whom == 'mine'" class="ap-view-title">Meus Eventos Cadastrados</div>
+<div tal:condition="python: view.whom == 'add'" class="ap-view-title">Cadastre seu Evento</div>
+

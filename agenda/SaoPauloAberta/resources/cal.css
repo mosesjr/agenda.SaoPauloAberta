@@ -1,0 +1,116 @@
+main {
+    text-align: center;
+    margin: 2em 1.5em;
+    margin-top: 5em;
+}
+main header {
+    font-family: "arial";
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.ap-cal-ctrl {
+    display: inline-block;
+    padding: 0.5em;
+    border: 3px solid #666;
+    border-radius: 50%;
+    line-height: 0.5em;
+    text-align: center;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ap-cal-ctrl:hover {
+    box-shadow: 0 0 7px #666;
+}
+
+.ap-cal-title {
+    display: inline-block;
+    color: #b11117;
+}
+
+.ap-cal-container {
+    display: inline-block;
+    text-align: center;
+}
+
+section {
+    display: table;
+    margin-top: 2em;
+    border: 1px solid #8c8c8c;
+    border-collapse: collapse;
+    cursor: default;
+}
+
+section header {
+    display: table-row;
+}
+
+.ap-week-day {
+    display: table-cell;
+    width: 8em;
+    border: 1px solid #8c8c8c;
+    background-color: #b11117;
+    padding: 2em;
+    color: #fff;
+    font-size: 0.55em;
+    white-space: nowrap;
+}
+
+.ap-week-day span {
+    padding-left: 0.25em;    
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ap-week-spacer {
+    display: inline-block;
+    width: 5em;
+    text-align: ceter;
+}
+
+.ap-cal-line {
+    display:table-row;
+}
+
+.ap-cal-cell {
+    display: table-cell;
+    border: 1px solid #8c8c8c;
+    background-color: #f1e5db;
+    padding: 0.5em;
+    cursor: pointer;
+    webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #666;
+    font-family: "Arial";
+    text-align: left;
+}
+
+.ap-cal-cell:hover {
+    color: #333;
+    background-color: #fff0db;
+}
+
+.ap-cal-cell-empty {
+    display: table-cell;
+    border-left: 1px solid #8c8c8c;
+    border-right: 1px solid #8c8c8c;
+    background-color: #fff;
+    padding: 1em;
+}
+
+.ap-cell-data {
+    display: inline-block;
+    width:8em;
+    padding-top: 1em;
+    overflow: hidden;
+}

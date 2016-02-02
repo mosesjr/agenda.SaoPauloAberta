@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+/eggs
+/bin
+/var
+/develop-eggs
+/src
+/parts

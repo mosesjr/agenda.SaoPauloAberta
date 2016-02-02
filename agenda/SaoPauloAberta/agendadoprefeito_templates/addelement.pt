@@ -1,0 +1,138 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="portal.SaoPauloAberta">
+<body>
+	
+<metal:block fill-slot="style_slot">
+	<metal:style define-macro="style_slot">
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/containerTemplate.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/main.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/main.css"/>
+		<link rel="stylesheet" href="http://openlayers.org/en/v3.4.0/css/ol.css" type="text/css">
+        <link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/addElement.css"/>
+	</metal:style>
+</metal:block>
+
+<metal:main fill-slot="content-core">
+  <metal:content-core define-macro="content-core">
+    <script src="http://openlayers.org/en/v3.4.0/build/ol.js" type="text/javascript"></script>
+    <script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/jquery.jscroll.js"></script>
+    <tal:block content="structure provider:agenda.SaoPauloAberta.INavBar"></tal:block>
+    <div class="ap-modal" style="display: none">
+        <div class="overlay-modal">
+            <div class="overlay-close" onclick="this.parentNode.parentNode.style.display='none'; document.body.style.overflow='auto';">e</div>
+            <div class="ap-overlay-title">Adicionar Mídia</div>
+            <div class="ap-overlay-contents">	
+                    <div><label>Endereço da Mídia</label><input class="modal" type="text" id="ap-modal-data-url"></div>
+                    <div><label>Título</label><input class="modal" type="text" id="ap-modal-data-title"></div>
+                    <div class="ap-modal-controls">
+                        <input class="modal" type="button" value="Cancelar" onclick="HideModal();">
+                        <input class="modal" type="button" value="Inserir" onclick="AddMedia(document.getElementById('ap-modal-data-url').value, document.getElementById('ap-modal-data-title').value);HideModal();"> 
+                    </div>
+            </div>
+        </div>    
+    </div>
+   <main>
+        <section class="ap-add-info">
+            <header>1 - Nome do Evento e Descrição</header>
+            <div class="ap-add-detail">
+                <div>
+                    <label for="name">Nome do Evento</label>
+                    <input class="ap-input-full" maxlength="128" type="text" name="name" id="name" tal:attributes="value python: view.baseObject.title if view.baseObject else ''" placeholder="Digite o nome do seu evento">
+                    <div><span id="name-chars">128</span><span> caracteres restantes</span></div>
+                </div>
+                <div>
+                    <label for="summary">Resumo</label>
+                    <textarea class="ap-input-full" maxlength="256" rows="2" type="text" name="summary" id="summary" tal:content="python: view.baseObject.description if view.baseObject else ''" placeholder="Escreva uma breve descrição do seu evento, que será utilizada como resultado de busca e informação rápida para o visitante"/>
+                    <div><span id="summary-chars">256</span><span> caracteres restantes</span></div>
+                </div>
+                <div>
+                    <label for="desc">Descrição</label>
+                    <textarea class="ap-input-full" maxlength="1024" rows="10" type="text" name="description" id="desc" tal:content="python: view.baseObject.fullDescription if view.baseObject else ''" placeholder="Insira a descrição detalhada de seu projeto, incluindo sua relevância no contexto cultural/esportivo, seu objetivo, frequência de ocorrência e quaisquer outras informações que achar importante"></textarea>
+                    <div><span id="description-chars">1024</span><span> caracteres restantes</span></div>
+                </div>
+            </div>
+        </section>
+        <section class="ap-add-info">
+            <header>2 - Data e Localização</header>
+            <div class="ap-add-detail">
+                <div>
+                    <label>Início do Evento</label>
+                    <input type="text" id="start-date" class="ap-evt-date" placeholder="dd/mm/aaaa" tal:attributes="value python: view.FormatDate(view.baseObject.start) if view.baseObject else ''">
+                    às
+                    <input type="text" id="start-time" class="ap-evt-time" placeholder="hh:mm" tal:attributes="value python: view.FormatTime(view.baseObject.start) if view.baseObject else ''">
+                    <div class="ap-small-break"></div>
+                    <label>Término do Evento</label>
+                    <input type="text" id="end-date" class="ap-evt-date" placeholder="dd/mm/aaaa" tal:attributes="value python: view.FormatDate(view.baseObject.end) if view.baseObject else ''">
+                    às
+                    <input type="text" id="end-time" class="ap-evt-time" placeholder="hh:mm" tal:attributes="value python: view.FormatTime(view.baseObject.end) if view.baseObject else ''">
+                </div>
+                <div>
+                        <label>Localização</label>
+                        <input class="ap-input-full ap-search-box" typ="text" id="address" name="address" placeholder="Insira seu endereço" tal:attributes="value python: view.baseObject.location if view.baseObject else ''">
+                        <div class="ap-search-button">S</div>
+                </div>
+                <div>
+                        <label>Mapa</label>
+                        <div id="map" class="ap-map"></div>
+                        <label></label>
+                        <div class="ap-suggestions"></div>    
+                </div>
+            </div>
+        </section>
+        <section class="ap-add-info">
+            <header>3 - Insira Fotos e Vídeos</header>
+            <div class="ap-add-detail">
+                <div class="ap-media-container">
+                    <div class="ap-add-media">
+                        <div class="ap-media-element" style="display: none">
+                            <div class="ap-media-pic"></div>
+                            <div class="ap-media-description"></div>
+                            <div class="ap-media-controls">
+                                <div class="ap-media-right" onclick="SetFrontElement(this)">
+                                    <div class="ap-media-check" >D</div><span>Capa</span>
+                                </div>
+                                <div class="ap-media-left" onclick="if (confirm('Remover Elemento?')){this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)}">G</div>
+                                <div class="ap-media-left" onclick="ShowModal(true, this.parentNode.parentNode)">L</div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div>
+                        <div id="ap-pick-media" >Escolher foto/vídeo</div>
+                </div>
+            </div>
+        </section>
+        <section class="ap-add-controls">
+                <input type="checkbox" id="agree" name="agree" value="true">
+                <label for="agree"> Declaro que as informações acima são verdadeiras e estou ciente de estar sujeito às penas da legislação pertinente caso tenha afirmado falsamente os dados preenchidos.</label>
+                <div class="ap-add-buttons">
+                    <button name="publish" id="publish" onclick="CaptureInfo('submit')">Submeter à Moderação</button>
+                    <button name="save" id="save" onclick="CaptureInfo('save')">Salvar em Rascunho</button>
+                </div>
+        </section>
+    </main>   
+    <form name="ap-data" method="POST" tal:attributes="action python: '@@updateElement' if view.baseObject else '@@commitElement' "></form>
+  </metal:content-core>
+</metal:main>
+
+<metal:block fill-slot="javascript_beforebodyend_slot">
+	<metal:js define-macro="javascript_beforebodyend_slot">
+        <script tal:content="python: 'var ID = ' + chr(34) + view.baseObject.id + chr(34) + ';' if view.baseObject else 'var ID;'"></script>
+        <script tal:content="python: 'var MapCenter = [' + view.baseObject.mapCenter + ']' if view.baseObject else 'var MapCenter= [-46.6388, -23.5489]'"></script>        
+        <script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/jquery.mask.min.js"></script>
+        <script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/map.js"></script>
+        <script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/addElement.js"></script>
+        <tal:block repeat="element view/GetMedia">
+            <script tal:condition="element/url" tal:content="string: AddMedia('${element/url}', '${element/name}');"></script>
+            <script tal:condition="element/isFront" tal:content="string:  var Elements=document.getElementsByClassName('ap-media-right');SetFrontElement(Elements[Elements.length-1]);"></script>
+        </tal:block>
+	</metal:js>
+</metal:block>
+</body>
+</html>
+

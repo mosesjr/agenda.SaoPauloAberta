@@ -1,0 +1,393 @@
+@font-face {
+    font-family: agendaDoPrefeito;
+    src: url("/++resource++agenda.SaoPauloAberta/agenda.ttf");
+}
+
+#title-description-container {   
+   background-color: #fff!important;
+   border: 0!important  ;
+}
+
+#title-and-description {
+   display: block!important;
+   padding: 0!important;
+}
+
+/* New Style */
+.ap-title {
+    padding: 1em;
+    font-family: "arial";
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.ap-form {
+    display: inline-block;
+}
+
+.ap-ctrl-button {
+    display: inline-block;
+    background-color: #999;
+    cursor: pointer;
+    padding: 0.5em 2em;
+    color: #fff;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ap-ctrl-button:hover {
+    background-color: #777
+}
+
+.ap-publish {
+    background-color: #b11117;
+}
+
+.ap-publish:hover {
+    background-color: #790c10;
+}
+
+.ap-publish:hover {
+    box-shadow: 0em 0em 0.5em #666;
+}
+
+.ap-info-bar {
+    height: 8em;
+    background-color: #e6e6e6;
+    box-shadow: 0.2em 0.2em 0.5em #666;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.ap-info-datebar {
+    display: inline-block;
+    height: 100%;
+    background-color: #b11117;    
+    padding-right: 1em;    
+    color: #fff;
+    font-family: "arial";
+    vertical-align: top;
+}
+
+.ap-info-date {
+    display: inline-block;
+    margin: 2em;
+    margin-right: 0;
+    width: 3.5em;
+    border: 2px solid white;
+    padding: 0.2em;
+    line-height: 1.2em;
+    text-align: center;
+}
+
+.ap-info-date>div{
+    font-size: 0.9em;
+    font-weight: 700;
+}
+
+.ap-info-full-date {
+    display: inline-block;
+    padding-left: 1em;
+    padding-top: 2em;
+    vertical-align: top;
+    white-space: wrap;
+}
+
+.ap-info-full-date>div {
+    font-size: 0.95em;
+    padding-bottom: 0.5em;
+}
+
+.ap-info-full-date .ap-time {
+    font-weight: 700;
+}
+
+.ap-info-separator {
+    display: inline-block;
+    border-left: 2em solid #b11117;
+    border-top: 4em solid transparent;
+    border-bottom: 4em solid transparent;
+    width: 0;
+    height: 0;
+}
+
+.ap-like-bar {
+    display: inline-block;
+    padding-left: 2em;
+    vertical-align: top;
+    font-family: "arial";
+}
+
+.ap-like-title {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    font-size: 1.5em;
+}
+
+.ap-like-button {
+    display: inline-block;
+    margin-right: 2em;
+    font-size: 0.8em;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ap-like-button:hover {
+    box-shadow: 1px 1px 0.5em #333;
+}
+
+.ap-like-button-title {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    padding-left: 0em;
+    color: #fff;
+}
+
+.ap-like-img {
+    width: auto;
+    height: 1.5em;
+    padding: 0 0.5em;
+}
+
+.ap-like-active {
+    border: 1px solid #b11117;
+    box-shadow: 4px 4px 5px #000;
+}
+
+.ap-like-like {
+    background-color: #b11117;
+}
+
+.ap-like-dislike {
+    background-color: #999;
+}
+
+.ap-like-button-value {
+    display: inline-block;
+    background-color: #ccc;
+    padding: 0.7em;
+}
+
+.ap-brief {
+    padding: 2.5em 1.5em;
+    color: #666;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 1.2em;
+    letter-spacing: 0.02em;
+    white-space: pre-wrap;
+}
+
+main {
+    margin-bottom: 3em;
+}
+
+.ap-main-left {
+    display: inline-block;
+    padding: 0 1em;
+    width: 55%;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.ap-main-right {
+    display: inline-block;
+    margin: 0 1em;
+    width: 40%;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    padding: 1.5em 1.0em 1em 2em;
+    box-shadow: 3px 3px 0.5em #666;
+    vertical-align: top;
+    line-height: 1.5em;
+    font-size: 1em;
+}
+
+.ap-main-description {
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    font-size: 1.3em;
+}
+
+section {
+    padding-bottom: 2em;
+    font-family: "arial";
+}
+
+section header {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+section>iframe {
+    width: 100%;
+    height: 30em;
+} 
+
+section img {
+    width: 100%;
+    height: auto;
+}
+
+.ap-media-container {
+    text-align: center;
+}
+
+.ap-media-full {
+    display: inline-block;
+    width: 90%;
+}
+
+.ap-media-full iframe {
+    width: 420px;
+    height: 315px;
+}
+
+.ap-media-full img {
+}
+
+.ap-media-title {
+    background-color: #d6d6d6;
+    padding: 1em;
+    font-weight: 700;
+    display: none;
+}
+
+.ap-address {
+    padding-top: 1em;
+    font-size: 1.15em;
+}
+
+.ap-map {
+    display: inline-block;
+    margin-top: 2em;
+    margin-left: 5%;
+    width: 85%;
+    height: 20em;
+    border: 1px solid #b11117;
+}
+
+.ap-media-navigator-container {
+    display: inline-block;
+    position: relative;
+    margin: 2em 0.5em;
+    width: 24em;
+    height: 6em;
+    overflow: hidden;
+    padding: 1em 0;
+}
+
+.ap-media-navigator {
+    height: 10em;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.ap-media-item {
+    display: inline-block;
+    padding: 1em;
+}
+
+.ap-media-item-active {
+    background-color: #DDD;
+}
+
+.ap-media-mini {
+    display: inline-block;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    width: 7em;
+    height: 5em;
+    background: url("./main.png");
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+
+.ap-media-mini:hover {
+    box-shadow: 0 0 5px #333;
+}
+
+.ap-media-mini:last {
+    margin-right: 0;
+}
+
+.ap-media-mini {
+    margin: 0;
+}
+
+.ap-media-sel {
+}
+
+.ap-media-navigator-controls {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 0;
+    padding-top: 5.5em;
+}
+
+.ap-media-ctrl {
+    display: inline-block;
+    margin-right: 0.25em;
+    padding: 0.5em 0.2em;
+    background-color: #aaa;
+    color: #fff;
+    font-size: 2em;
+    font-weight: 700;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;   cursor: pointer;
+}
+
+.ap-media-ctrl:hover {
+    box-shadow: 1px 1px 0.5em #333;
+}
+
+/* Responsive */
+@media (max-width: 899px) {
+    .ap-info-bar {
+        height: auto;
+        background-color: #b11117;
+        box-shadow: 0.2em 0.2em 0.5em #666;
+    }
+
+    .ap-info-datebar {
+        text-align: center;
+    }
+
+    .ap-info-separator {
+        display: none;
+    }
+
+    .ap-like-bar {
+        display: block;
+        padding-bottom: 2em;
+        background-color: #e6e6e6;
+    }
+
+    .ap-main-left {
+        width: auto;
+    }
+
+    .ap-main-right {
+        display: block;
+        width: auto;
+    }
+}
+
+@media (max-width: 399px) {
+    .ap-info-date {
+        margin-bottom: 0;
+    }
+}

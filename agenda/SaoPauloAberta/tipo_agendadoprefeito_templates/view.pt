@@ -1,0 +1,222 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="portal.SaoPauloAberta">
+<body>
+
+<metal:block fill-slot="style_slot">
+	<metal:style define-macro="style_slot">
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/typeTemplate.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++portal.SaoPauloAberta/main.css"/>
+		<link rel="stylesheet" tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/event.css"/>
+		<link rel="stylesheet" href="http://openlayers.org/en/v3.4.0/css/ol.css" type="text/css">
+	</metal:style>
+</metal:block>
+
+<metal:block fill-slot="content-next-to-title">
+  <metal:left-of-title define-macro="content-next-to-title">
+	  
+  </metal:left-of-title>
+</metal:block>
+
+
+<metal:block fill-slot="content-after-title">
+  <metal:after-title define-macro="content-after-title">
+      
+  </metal:after-title>
+</metal:block>
+
+<metal:main fill-slot="content-core">
+  <metal:content-core define-macro="content-core">      
+      <header>
+            <div class="ap-info-bar">
+                <div class="ap-info-datebar">
+                        <div class="ap-info-date">
+                            <div tal:content="python: view.GetDate('start').day"></div>
+                            <div tal:content="python: view.ConvertMonthName(view.GetDate('start').month)"></div>
+                            <div tal:content="python: view.GetDate('start').year"></div>
+                        </div>
+                        <div class="ap-info-full-date">
+                            <div>Começa: <span tal:content="python: view.GetFullDate('start')"></span>, às <span tal:content="python: view.GetFormatedTime('start')" class="ap-time"></span></div>
+                            <div>Termina: <span tal:content="python: view.GetFullDate('end')"></span>, às <span tal:content="python: view.GetFormatedTime('end')" class="ap-time"></span></div>
+                        </div>                
+                </div><div class="ap-info-separator"></div>
+                <div class="ap-like-bar" tal:condition="view/IsPublished"> 
+                    <div class="ap-like-title">Vote neste evento</div>
+                    <div tal:attributes="class python: 'ap-like-button ap-like-active' if context.HasLikeVotes() else 'ap-like-button'">
+                        <form action="" method="POST"> 
+                            <div class="ap-like-button-title ap-like-like" tal:attributes="onclick python: 'this.parentNode.submit()' if view.AuthenticatedUser() else 'alert(\'Você precisa estar autenticado para curtir o evento\')'">
+                                <img class="ap-like-img" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/like_white.png; ">
+                                Gostei
+                            </div><div class="ap-like-button-value" tal:content="view/GetLikes"></div>
+                            <input type="hidden" name="vote" value="like">
+                        </form>
+                    </div>
+			
+                    <div tal:attributes="class python: 'ap-like-button ap-like-active' if context.HasDislikeVotes() else 'ap-like-button'">
+                        <form action="" method="POST"> 
+                            <div class="ap-like-button-title ap-like-dislike" tal:attributes="onclick python: 'this.parentNode.submit()' if view.AuthenticatedUser() else 'alert(\'Você precisa estar autenticado para curtir o evento\')'">
+                                <img class="ap-like-img" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/dislike_white.png ;">				    
+                                Não Gostei
+                            </div><div class="ap-like-button-value" tal:content="view/GetDislikes"></div>
+                            <input type="hidden" name="vote" value="dislike">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+	<div class="ap-brief" tal:content="context/description"></div>
+        <main>
+            <div class="ap-main-left">
+                <section tal:condition="python: context.GetFrontPage() is not None">
+		    <iframe tal:condition="python: context.GetFrontPage(True) != context.GetFrontPage(False)" tal:attributes="src python:context.GetFrontPage(False)"></iframe>
+		    <img tal:condition="python: context.GetFrontPage(True) == context.GetFrontPage(False)" tal:attributes="src python:context.GetFrontPage(False)">
+                </section>
+                <section tal:condition="python: len(view.GetMedia()) > 0">
+                    <header>Galeria de Fotos e Vídeos</header>
+                    <div class="ap-media-container">
+                        <div class="ap-media-navigator-container" tal:attributes="style python: 'display: none' if len(view.GetMedia()) <= 1 else 'display: '">
+                            <div class="ap-media-navigator">
+                            <tal:block repeat="el view/GetMedia">
+                                <div class="ap-media-item">
+                                    <div class="ap-media-mini" onclick="SetMedia(this)" tal:attributes="style string:background-image:URL('${el/preview}') ; data-preview string:${el/preview}; data-embeded string:${el/embeded} ; data-name string:${el/name}"></div>
+                                </div>
+                            </tal:block>
+                            </div>
+                        </div>
+                        <div class="ap-media-navigator-controls" tal:condition="python: len(view.GetMedia()) > 1">
+                            <div class="ap-media-ctrl" onclick="SetPrevious()">&lt;</div> 
+                            <div class="ap-media-ctrl" onclick="SetNext()">&gt;</div> 
+                        </div>
+                        <div class="ap-media-full">
+                            <iframe id="media-frame" style="display: none"></iframe>
+                            <img id="media-image" style="display: none">
+                            <div id="media-title" class="ap-media-title" style="display: none"></div>
+                        </div>
+                    </div>
+                </section>
+            </div><div class="ap-main-right">   
+                <section class="ap-main-description" tal:content="context/fullDescription">
+                </section>
+                <section>
+                    <header>Localização</header>
+                    <div class="ap-address" tal:content="context/location"></div>
+                    <div id="map" class="ap-map">
+		    </div>
+                </section>
+            </div>
+        </main>
+	<div class="ap-add-controls" tal:condition="view/IsAuthor">
+        <fieldset>
+            <legend>Evento</legend>
+            <form tal:condition="python: context.state == 'save'" class="ap-form" tal:attributes="action python:'/'.join(context.aq_parent.getPhysicalPath()) + '/@@addElement'" method="POST">
+                <div class="ap-ctrl-button ap-publish"  onclick="this.parentNode.submit()">Editar</div>
+                <input type="hidden" name="whom" value="add">
+                <input type="hidden" name="evt" tal:attributes="value python: context.id">
+            </form>
+            <form class="ap-form" tal:attributes="action python:'/'.join(context.aq_parent.getPhysicalPath()) + '/@@removeElement'" method="POST">
+                <div class="ap-ctrl-button"  onclick="if (confirm('Tem certeza que deseja apagar o evento ?')) {this.parentNode.submit()}">Excluir</div>
+                <input type="hidden" name="whom" value="mine">
+                <input type="hidden" name="id" tal:attributes="value context/id">
+            </form>
+        </fieldset>
+	</div>
+	<div class="ap-add-controls" tal:condition="view/IsReadyToPublish">
+        <fieldset>
+            <legend>Publicação do Evento</legend>
+            <form class="ap-form" tal:attributes="action string:${context/@@plone_context_state/current_page_url}/@@publish" method="POST">
+            <div class="ap-ctrl-button ap-publish" onclick="if (confirm('Tem certeza que deseja publicar este evento ?')) {this.parentNode.submit()}">Publicar</div>
+            </form>
+        </fieldset>
+    </div>
+	<div class="ap-add-controls" tal:condition="view/IsReadyToWin">
+        <fieldset>
+            <legend>Seleção de Ganhador</legend>
+            <form class="ap-form" tal:attributes="action string:${context/@@plone_context_state/current_page_url}/@@win" method="POST">
+            <div class="ap-ctrl-button ap-publish"  onclick="if (confirm('Tem certeza que deseja selecionar este evento ?')) {this.parentNode.submit()}">Selecionar</div>
+            </form>
+        </fieldset>
+	</div>
+	<input type="hidden" class="removeDescription"/>
+	</metal:content-core>
+</metal:main>
+
+<metal:block fill-slot="javascript_beforebodyend_slot">
+	<metal:js define-macro="javascript_beforebodyend_slot">
+	    <script>
+	    var MediaSet;
+	    function SetMedia(element) {
+            if (!element) {
+                element = document.getElementsByClassName("ap-media-mini")[0];
+            }
+            
+            var preview = element.getAttribute("data-preview").toString().trim();
+            var embeded = element.getAttribute("data-embeded").toString().trim();
+            var title = element.getAttribute("data-name").toString();
+            
+            var image = document.getElementById("media-image");
+            var video = document.getElementById("media-frame");
+            var name = document.getElementById("media-title");
+            
+            image.style.display = "none";
+            video.style.display = "none";
+            name.style.display = "none";
+            
+            if (preview == embeded) {
+                image.src=embeded;
+                image.style.display = "";
+            }		
+            else {
+                video.src=embeded
+                video.style.display = "";
+            }
+
+            if (title) {
+                name.innerHTML = title;
+                name.style.display = "";
+            }
+
+            var mediaItems = document.getElementsByClassName("ap-media-item");
+            for (var i = 0; i < mediaItems.length; i++) {
+                mediaItems[i].className = "ap-media-item";
+                if (mediaItems[i] == element.parentNode) {
+                    MediaSet = i;
+                }
+            }
+            element.parentNode.className = "ap-media-item ap-media-item-active";
+            $(element.parentNode.parentNode).scrollLeft($(element).position().left + $(element).width()/2 - $(element.parentNode.parentNode).width()/2);
+	    }
+	    
+	    function SetNext() {
+		MediaSet++;
+		var mediaItems = document.getElementsByClassName("ap-media-item");
+		if (MediaSet >= mediaItems.length) {
+			MediaSet = 0;
+		}
+		SetMedia(mediaItems[MediaSet].getElementsByClassName("ap-media-mini")[0]);
+	    }
+	    
+	    function SetPrevious() {
+		MediaSet--;
+		var mediaItems = document.getElementsByClassName("ap-media-item");
+		if (MediaSet < 0) {
+			MediaSet = mediaItems.length - 1;
+		}
+		SetMedia(mediaItems[MediaSet].getElementsByClassName("ap-media-mini")[0]);
+	    }
+	    
+	    SetMedia();
+	</script>
+
+	<script src="http://openlayers.org/en/v3.4.0/build/ol.js" type="text/javascript"></script>
+        <script tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++agenda.SaoPauloAberta/map.js"></script>
+	<script tal:content="string: InitMap([${context/mapCenter}]);"></script>
+	</metal:js>
+</metal:block>
+
+</body>
+</html>
+
